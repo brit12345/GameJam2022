@@ -4,6 +4,7 @@ let currentScreen = MENU;
 let menu = new Menu();
 let level = new Level();
 let player = new Player();
+let enemy = new Enemy();
 
 function preload() {
 
@@ -14,6 +15,7 @@ function setup() {
   menu.setup();
   level.setup();
   player.setup();
+  enemy.setup();
 }
 function draw() {
   background(0);
@@ -22,5 +24,6 @@ function draw() {
   } else if(currentScreen == GAME){
     level.draw();
     player.draw();
+    enemy.draw();
   }
 }
