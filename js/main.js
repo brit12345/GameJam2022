@@ -11,6 +11,7 @@ let originalCamPos = { //for repositioning camera back to where it starts
   x: 550,
   y: 375
 };
+let enemy = new Enemy();
 
 function preload() {
 
@@ -26,6 +27,7 @@ function setup() {
   player.setup();
   lose.setup();
 
+  enemy.setup();
 }
 function draw() {
   background(0);
@@ -34,6 +36,7 @@ function draw() {
   } else if(currentScreen == GAME){
     level.draw();
     player.draw();
+    enemy.draw();
   } else if(currentScreen == LOSE){
     lose.draw();
   }
