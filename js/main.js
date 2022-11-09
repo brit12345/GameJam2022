@@ -39,13 +39,11 @@ function draw() {
     player.draw();
     enemy.draw();
     collisionCheck();
-
     
   } else if(currentScreen == LOSE){
     lose.draw();
   }
 }
-
 
 function collisionCheck(){
   
