@@ -29,6 +29,7 @@ function setup() {
 
   enemy.setup();
 }
+
 function draw() {
   background(0);
   if(currentScreen == MENU){
@@ -37,9 +38,18 @@ function draw() {
     level.draw();
     player.draw();
     enemy.draw();
+    collisionCheck();
 
     
   } else if(currentScreen == LOSE){
     lose.draw();
   }
+}
+
+
+function collisionCheck(){
+  
+  //enemy bullets collide player
+  //player bullets collide enemy
+  //player collide with goal .....eventually
 }

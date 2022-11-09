@@ -57,6 +57,7 @@ class Lose {
     this.setupCall = false;
     this.mainMenuBtn.remove();
     currentScreen = MENU;
+    location.reload();
 
   }
 }
