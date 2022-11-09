@@ -7,6 +7,9 @@ let player = new Player();
 let lose = new Lose();
 let gameSprites;
 let bullets; //group for bullets
+let enemybullets;
+let enemies;
+
 let originalCamPos = { //for repositioning camera back to where it starts
   x: 550,
   y: 375
@@ -21,7 +24,8 @@ function setup() {
   createCanvas(1100, 750);
   gameSprites = new Group(); //I've been putting each screen in it's own group, and calling draw on the groups
   bullets = new Group();
- 
+  enemybullets = new Group();
+  enemies = new Group();
   menu.setup();
   level.setup();
   player.setup();
@@ -30,6 +34,7 @@ function setup() {
   enemy.setup();
 }
 
+
 function draw() {
   background(0);
   if(currentScreen == MENU){
@@ -37,7 +42,7 @@ function draw() {
   } else if(currentScreen == GAME){
     level.draw();
     player.draw();
-    enemy.draw();
+   enemy.draw();
     collisionCheck();
     
   } else if(currentScreen == LOSE){
