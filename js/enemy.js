@@ -20,24 +20,25 @@ class Enemy {
     setup(){
       
       this.sprite = createSprite(500, height-80, 40, 40);
-      this.sprite.setCollider
+      this.sprite.setCollider("rectangle",0 ,0, 40,40)
+      this.sprite.debug=true;
     }
   
     draw(){
       drawSprites();
       this.movement();
-      //this.checkForShoot();
+      this.checkForShoot();
       this.checkForSpawn();
      
     }
   
    
     movement(){
-      if (player.position.x >= this.sprite.position.x) {
+      if (player.sprite.position.x >= this.sprite.position.x) {
           
           this.sprite.position.x += this.walkSpeed
           this.forwardAngle = 0;
-      } else if (player.position.x <= this.sprite.position.x) {
+      } else if (player.sprite.position.x <= this.sprite.position.x) {
    
         this.sprite.position.x -= this.walkSpeed
         this.forwardAngle = 180;
@@ -48,7 +49,7 @@ class Enemy {
 
     checkForSpawn(){
       this.spawnTimer++;
-      if(this.spawnTimer >= this.spawnDuration){
+      if(this.spawnTimer >= this.spawnDuration/this.walkSpeed){
         this.spawn();
         this.spawnTimer = 0;
       }

@@ -37,6 +37,8 @@ function draw() {
     level.draw();
     player.draw();
     enemy.draw();
+
+    
   } else if(currentScreen == LOSE){
     lose.draw();
   }
