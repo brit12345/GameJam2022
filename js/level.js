@@ -22,5 +22,7 @@ class Level {
       rect(10 + i*4000/50, height - 50, 2, 50);
       pop();
     }
+
+    gameSprites.draw();
   }
 }

@@ -2,25 +2,44 @@
 class Menu {
   constructor(){
     this.playButton;
+    this.menuSprites;
+    this.setupCall = false;
   }
 
   setup(){
-    this.playButton = createSprite(width/2, height/2, 150, 50);
-    this.playButton.shapeColor = "grey";
-    this.playButton.setCollider("rectangle", 0, 0, 150, 50);
+    
   }
 
   draw(){
-    this.playButton.onMousePressed = this.onPlayClicked;
+    if(this.setupCall == false){ //need to destroy and recreate the button because even
+      this.createPlayButton();   //when it isn't being drawn, the click event fires
+      this.setupCall = true;
+    }
+
+    this.playButton.onMousePressed = () => this.onPlayClicked();
+
     this.drawTitle();
-    drawSprites();
+
+    this.menuSprites.draw();
 
     //to draw on top of sprites
     this.drawButtonLabel();
   }
 
+  createPlayButton(){
+    this.playButton = createSprite(width/2, height/2, 150, 50);
+    this.playButton.shapeColor = "grey";
+    this.playButton.setCollider("rectangle", 0, 0, 150, 50);
+    this.menuSprites = new Group();
+    this.playButton.debug = true;
+   
+    this.menuSprites.add(this.playButton);
+  }
+
   onPlayClicked(){
+    this.setupCall = false; //reset setup for when go back to this screen
     currentScreen = GAME; //change current screen when play clicked
+    this.playButton.remove();
   }
 
   drawButtonLabel(){

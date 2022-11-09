@@ -1,6 +1,13 @@
 class Player {
-  constructor(x = 40, y = 650){
-    this.position = { x, y }; //shorthand for x: x and y: y
+  constructor(){
+    this.sprite;
+    this.health = 100;
+    this.maxHealth = 100;
+    this.walkSpeed = 3;
+    this.shootSpeed = 5;
+    this.forwardAngle = 0;
+    this.cooldownTimer = 500;
+    this.cooldownDuration = 100; //change this for duration between bullets
   }
 
   preload(){
@@ -8,26 +15,50 @@ class Player {
   }
 
   setup(){
-    this.position = {
-      x: 40,
-      y: height - 100 //need to declare here to be able to use height
-    }
+    this.sprite = createSprite(40, height - 80, 40, 40);
+    
+    gameSprites.add(this.sprite);
   }
 
   draw(){
     this.movement();
-    rect(this.position.x, this.position.y, 40, 40);
-
+    this.checkForShoot();
   }
 
   //moves character left and right with arrow keys and wasd, and updates camera to follow
   movement(){
     if(keyIsDown(LEFT_ARROW) || keyIsDown(KEY.A)){
-      this.position.x-=3;
+      this.sprite.position.x -= this.walkSpeed;
+      this.forwardAngle = 180;
     } else if(keyIsDown(RIGHT_ARROW) || keyIsDown(KEY.D)){
-      this.position.x+=3;
+      this.sprite.position.x += this.walkSpeed;
+      this.forwardAngle = 0;
     }
 
-    updateCamera(this.position.x);
+    updateCamera(this.sprite.position.x);
+  }
+
+  checkForShoot(){
+    this.cooldownTimer++;
+    if(mouseIsPressed && (this.cooldownTimer >= this.cooldownDuration/this.shootSpeed)){
+      this.shoot();
+      this.cooldownTimer = 0;
+    }
+  }
+
+  shoot(){
+    let bullet = new Bullet(this.sprite.position.x, this.sprite.position.y);
+    bullet.shoot(this.forwardAngle, this.shootSpeed); //shoot forward
+  }
+
+  die(){
+    camera.position.x = originalCamPos.x;
+    camera.position.y = originalCamPos.y;
+    //console.log(camera.position);
+    currentScreen = LOSE;
+  }
+
+  takeDamage(amt){
+    this.health -= amt;
   }
 }
