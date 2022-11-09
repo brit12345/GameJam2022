@@ -13,5 +13,4 @@ class Bullet {
   shoot(angle, speed){
     this.sprite.setSpeed(speed, angle);
   }
-
 }
