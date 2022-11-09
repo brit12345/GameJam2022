@@ -23,6 +23,10 @@ class Player {
   draw(){
     this.movement();
     this.checkForShoot();
+
+    if(this.health <= 0){
+      this.die();
+    }
   }
 
   //moves character left and right with arrow keys and wasd, and updates camera to follow

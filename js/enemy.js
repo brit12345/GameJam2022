@@ -3,7 +3,7 @@ class Enemy {
   
     constructor(){
       this.sprite;
-      this.health = 30;
+      this.alive = true;
       this.walkSpeed = 1.5;
       this.forwardAngle = 180
       this.shootSpeed = 7;
@@ -21,7 +21,11 @@ class Enemy {
     setup(){
       
       this.sprite = createSprite(500, height-80, 40, 40);
+      this.sprite.health = 30; //health needs to be attached to sprite for access in takeDamage function
       this.sprite.setCollider("rectangle",0 ,0, 40,40)
+      this.sprite.takeDamage = function (amt){
+        this.health -= amt; //in here, "this" refers to the sprite, not the object
+      }
       this.sprite.debug=true;
       gameSprites.add(this.sprite);
       enemies.add(this.sprite);
@@ -32,7 +36,9 @@ class Enemy {
       this.movement();
       this.checkForShoot();
      
-     
+      if(this.sprite.health <= 0){
+        this.die();
+      }
     }
   
    
@@ -45,19 +51,18 @@ class Enemy {
    
         this.sprite.position.x -= this.walkSpeed
         this.forwardAngle = 180;
-        
-        
-    }
+  
+      }
     }
 
 
     checkForShoot(){
       this.cooldownTimer++;
-      if(this.cooldownTimer >= this.cooldownDuration/this.shootSpeed){
+      if(this.cooldownTimer >= this.cooldownDuration/this.shootSpeed && (this.alive)){
         this.shoot();
         this.cooldownTimer = 0;
-     }
-   }
+      }
+    }
   
     shoot(){
       let Enemybullet = new EnemyBullet(this.sprite.position.x, this.sprite.position.y);
@@ -66,9 +71,6 @@ class Enemy {
   
     die(){
       this.sprite.remove();
-    }
-  
-    takeDamage(amt){
-      this.health -= amt;
+      this.alive = false;
     }
   }

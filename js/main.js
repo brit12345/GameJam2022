@@ -51,7 +51,15 @@ function draw() {
 }
 
 function collisionCheck(){
-  
+  enemybullets.collide(player.sprite, (spriteA, spriteB) => {
+    player.takeDamage(spriteA.damage); //bullet damage
+    spriteA.remove();
+  })
+
+  bullets.collide(enemies, (spriteA, spriteB) => {
+    spriteB.takeDamage(spriteA.damage)
+    spriteA.remove();
+  })
   //enemy bullets collide player
   //player bullets collide enemy
   //player collide with goal .....eventually
