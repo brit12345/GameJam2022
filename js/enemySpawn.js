@@ -1,21 +1,19 @@
 
 class EnemySpawn {
 
-    constructor(x, y){
-      this.damage = 10;
+    constructor(){
       this.sprite;
-      this.sprite = createSprite(x, y, 30, 4);
-      this.sprite.setCollider("rectangle", 0, 0, 30, 4);
-      this.sprite.life = 200;
+      this.sprite = createSprite(500, 500, 30, 30);
+      this.sprite.setCollider("rectangle", 0, 0, 30, 30);
       gameSprites.add(this.sprite);
       enemies.add(this.sprite);
     }
 
     checkForSpawn(){
-        this.spawnTimer++;
-        if(this.spawnTimer >= this.spawnDuration/this.walkSpeed){
+        enemy.spawnTimer++;
+        if(enemy.spawnTimer >= enemy.spawnDuration){
           this.spawn();
-          this.spawnTimer = 0;
+          enemy.spawnTimer = 0;
         }
       }
     
