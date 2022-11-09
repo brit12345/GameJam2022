@@ -5,6 +5,7 @@ let menu = new Menu();
 let level = new Level();
 let player = new Player();
 let lose = new Lose();
+let enemy = new Enemy();
 let gameSprites;
 let bullets; //group for bullets
 let enemybullets;
@@ -14,7 +15,7 @@ let originalCamPos = { //for repositioning camera back to where it starts
   x: 550,
   y: 375
 };
-let enemy = new Enemy();
+
 
 function preload() {
 
@@ -30,8 +31,8 @@ function setup() {
   level.setup();
   player.setup();
   lose.setup();
-
   enemy.setup();
+
 }
 
 
@@ -42,8 +43,9 @@ function draw() {
   } else if(currentScreen == GAME){
     level.draw();
     player.draw();
-   enemy.draw();
+    enemy.draw();
     collisionCheck();
+
 
     
   } else if(currentScreen == LOSE){
@@ -57,4 +59,10 @@ function collisionCheck(){
   //enemy bullets collide player
   //player bullets collide enemy
   //player collide with goal .....eventually
+}
+
+function enemySpawn(){
+  if (enemy.spawnTimer >= enemy.spawnDuration) {
+    enemy.spawnTimer = 0;
+  }
 }
