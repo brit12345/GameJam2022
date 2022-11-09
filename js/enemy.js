@@ -1,43 +1,43 @@
 
 class Enemy {
   
-  constructor(){
-    this.sprite;
-    this.alive = true;
-    this.walkSpeed = 1.5;
-    this.forwardAngle = 180
-    this.shootSpeed = 7;
-    this.cooldownTimer = 2000;
-    this.cooldownDuration = 600;
-    this.spawnTimer = 1000
-    this.spawnDuration = 1000
-    
-  }
-
-  preload(){
-
-  }
-
-  setup(){
-    
-    this.sprite = createSprite(500, height-80, 40, 40);
-    this.sprite.health = 30; //health needs to be attached to sprite for access in takeDamage function
-    this.sprite.setCollider("rectangle",0 ,0, 40,40)
-    this.sprite.takeDamage = function (amt){
-      this.health -= amt; //in here, "this" refers to the sprite, not the object
+    constructor(){
+      this.sprite;
+      this.alive = true;
+      this.walkSpeed = 1.5;
+      this.forwardAngle = 180
+      this.shootSpeed = 7;
+      this.cooldownTimer = 2000;
+      this.cooldownDuration = 600;
+      this.spawnTimer = 1000
+      this.spawnDuration = 1000
+      
     }
-    this.sprite.debug=true;
-    gameSprites.add(this.sprite);
-    enemies.add(this.sprite);
-  }
-
-  draw(){
-    drawSprites();
-    this.movement();
-    this.checkForShoot();
-    
-    if(this.sprite.health <= 0){
-      this.die();
+  
+    preload(){
+  
+    }
+  
+    setup(){
+      
+      this.sprite = createSprite(500, height-80, 40, 40);
+      this.sprite.health = 30; //health needs to be attached to sprite for access in takeDamage function
+      this.sprite.setCollider("rectangle",0 ,0, 40,40);
+      this.sprite.takeDamage = function (amt){
+        this.health -= amt; //in here, "this" refers to the sprite, not the object
+      }
+      this.sprite.debug=true;
+      gameSprites.add(this.sprite);
+      enemies.add(this.sprite);
+    }
+  
+    draw(){
+      this.movement();
+      this.checkForShoot();
+     
+      if(this.sprite.health <= 0){
+        this.die();
+      }
     }
   }
 
