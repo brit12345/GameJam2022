@@ -23,6 +23,7 @@ class Player {
   draw(){
     this.movement();
     this.checkForShoot();
+    this.drawHealthbar();
 
     if(this.health <= 0){
       this.die();
@@ -64,5 +65,23 @@ class Player {
 
   takeDamage(amt){
     this.health -= amt;
+  }
+
+  drawHealthbar(){
+    push();
+      const OFFSET_Y = 350;
+      const OFFSET_X = 500;
+      fill("red");
+      textSize(20);
+      textAlign(RIGHT, CENTER);
+      text(this.health, camera.position.x - OFFSET_X - 8, camera.position.y - OFFSET_Y + 15)
+      fill("red");
+      const HBAR_MAX_W = 400;
+      rect(camera.position.x - OFFSET_X, camera.position.y - OFFSET_Y, map(this.health, 0, this.maxHealth, 0, HBAR_MAX_W), 30);
+      noFill();
+      stroke("white");
+      strokeWeight(3);
+      rect(camera.position.x - OFFSET_X, camera.position.y - OFFSET_Y, HBAR_MAX_W, 30);
+    pop();
   }
 }

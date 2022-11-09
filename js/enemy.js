@@ -22,7 +22,7 @@ class Enemy {
       
       this.sprite = createSprite(500, height-80, 40, 40);
       this.sprite.health = 30; //health needs to be attached to sprite for access in takeDamage function
-      this.sprite.setCollider("rectangle",0 ,0, 40,40)
+      this.sprite.setCollider("rectangle",0 ,0, 40,40);
       this.sprite.takeDamage = function (amt){
         this.health -= amt; //in here, "this" refers to the sprite, not the object
       }
@@ -32,7 +32,6 @@ class Enemy {
     }
   
     draw(){
-      drawSprites();
       this.movement();
       this.checkForShoot();
      
