@@ -54,7 +54,9 @@ function draw() {
 
 function collisionCheck(){
   enemybullets.collide(player.sprite, (spriteA, spriteB) => {
-    player.takeDamage(spriteA.damage); //bullet damage
+    if(!player.blocking){ //take damage if player isn't blocking
+      player.takeDamage(spriteA.damage); //bullet damage
+    }
     spriteA.remove();
   })
 

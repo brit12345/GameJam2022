@@ -8,6 +8,7 @@ class Player {
     this.forwardAngle = 0;
     this.cooldownTimer = 500;
     this.cooldownDuration = 100; //change this for duration between bullets
+    this.blocking = false;
   }
 
   preload(){
@@ -24,6 +25,8 @@ class Player {
     this.movement();
     this.checkForShoot();
     this.drawHealthbar();
+    this.blockingCheck();
+    this.drawTempShield();
 
     if(this.health <= 0){
       this.die();
@@ -45,7 +48,7 @@ class Player {
 
   checkForShoot(){
     this.cooldownTimer++;
-    if(mouseIsPressed && (this.cooldownTimer >= this.cooldownDuration/this.shootSpeed)){
+    if(mouseIsPressed && (this.cooldownTimer >= this.cooldownDuration/this.shootSpeed) && this.blocking == false){
       this.shoot();
       this.cooldownTimer = 0;
     }
@@ -56,11 +59,30 @@ class Player {
     bullet.shoot(this.forwardAngle, this.shootSpeed); //shoot forward
   }
 
+  blockingCheck(){
+    if(keyIsDown(KEY.SHIFT)){
+      this.blocking = true;
+    } else {
+      this.blocking = false;
+    }
+  }
+
   die(){
     camera.position.x = originalCamPos.x;
     camera.position.y = originalCamPos.y;
-    //console.log(camera.position);
     currentScreen = LOSE;
+  }
+
+  drawTempShield(){
+    if(this.blocking){
+      push();
+        noStroke();
+        fill(50, 50, 230, 100);
+        for(let i = 0; i < 4; i++){
+          ellipse(this.sprite.position.x, this.sprite.position.y, 20*i, 20*i);
+        }
+      pop();
+    }
   }
 
   takeDamage(amt){
